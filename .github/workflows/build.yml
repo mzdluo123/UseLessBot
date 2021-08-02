@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: CI
+name: Build
 
 # Controls when the workflow will run
 on:
@@ -25,9 +25,7 @@ jobs:
       - name: Setup Java JDK
         uses: actions/setup-java@v2.1.0
         with:
-          # The Java version to set up. Takes a whole or semver Java version. See examples of supported syntax in README file
           java-version: 11
-          # Java distribution. See the list of supported distributions in README file
-          distribution: jdk
+          distribution: 'zulu'
       - name: build
         run: chmod +x ./gradlew && ./gradlew assemble
