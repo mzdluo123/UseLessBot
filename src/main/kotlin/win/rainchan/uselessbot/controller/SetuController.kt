@@ -1,7 +1,6 @@
 package win.rainchan.uselessbot.controller
 
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 import net.mamoe.mirai.Bot
 import net.mamoe.mirai.contact.Group
 import net.mamoe.mirai.event.EventHandler
@@ -30,7 +29,7 @@ class SetuController(
     private val downloader: ImgDownloader
 ) : SimpleListenerHost() {
     @Autowired
-    lateinit var bot:Bot
+    lateinit var bot: Bot
 
     private val logger = LogFactory.getLog(SetuController::class.java)
 
@@ -51,15 +50,16 @@ class SetuController(
             if (msg == "不够涩") {
                 group.sendMessage("嘻嘻......马上就来")
                 val msg = buildForwardMessage {
-                    for (i in 0..5){
-                        try{
-                            val chain = getSetu(group)
-                                add(bot,chain[0])
-                        }catch (e:Exception){
-                            logger.error("下载图片失败",e)
+                    (0..5).map {
+                        async {
+                            try {
+                                val chain = getSetu(group)
+                                add(bot, chain[0])
+                            } catch (e: Exception) {
+                                logger.error("下载图片失败", e)
+                            }
                         }
-
-                    }
+                    }.awaitAll()
                 }
                 group.sendMessage(msg)
             }
