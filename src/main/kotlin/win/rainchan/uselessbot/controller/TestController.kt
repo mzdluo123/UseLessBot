@@ -13,7 +13,6 @@ class TestController(private val conf:GroupConfig): SimpleListenerHost() {
 
         if (group.id == 206073050L && message.contentToString() == "你好"){
             group.sendMessage("你好呀")
-            group.sendMessage(conf.groupList.toString())
         }
     }
 
