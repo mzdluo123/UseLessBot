@@ -21,7 +21,7 @@ dependencies {
 //	implementation("org.jetbrains.kotlin:kotlin-reflect")
 //	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 	annotationProcessor("org.springframework.boot:spring-boot-configuration-processor:2.5.3")
-	implementation("com.github.mzdluo123:mirai-spring-boot-starter:1.4-fix3")
+	implementation("com.github.mzdluo123:mirai-spring-boot-starter:1.4-fix4")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 

@@ -24,5 +24,22 @@ jobs:
         distribution: 'adopt'
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
-    - name: Build with Gradle
-      run: ./gradlew build
+    - uses: burrunan/gradle-cache-action@v1
+      name: Build
+      # Extra environment variables for Gradle execution (regular GitHub Actions feature)
+      # Note: env must be outside of "with"
+      with:
+        arguments: assemble
+        # arguments can be multi-line for better readability
+        # arguments: |
+        #  --no-paralell
+        #  build
+        #  -x test
+        # Gradle version to use for execution:
+        #   wrapper (default), current, rc, nightly, release-nightly, or
+        #   versions like 6.6 (see https://services.gradle.org/versions/all)
+        gradle-version: wrapper
+        # Properties are passed as -Pname=value
+#        properties: |
+#          kotlin.js.compiler=ir
+#          kotlin.parallel.tasks.in.project=true
