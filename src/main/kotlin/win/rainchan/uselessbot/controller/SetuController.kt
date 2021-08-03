@@ -50,11 +50,11 @@ class SetuController(
             if (msg == "不够涩") {
                 group.sendMessage("嘻嘻......马上就来")
                 val msg = buildForwardMessage {
-                    (0..5).map {
+                    (0..10).map {
                         async {
                             try {
                                 val chain = getSetu(group)
-                                add(bot, chain[0])
+                                add(bot, chain)
                             } catch (e: Exception) {
                                 logger.error("下载图片失败", e)
                             }
@@ -68,7 +68,7 @@ class SetuController(
 
     suspend fun getSetu(group: Group): MessageChain {
         val rsp = withContext(Dispatchers.IO) {
-            client.newCall(Request.Builder().get().url("https://pximg.rainchan.win/rawimg").build())
+            client.newCall(Request.Builder().get().url(" https://pximg.rainchan.win/img").build())
                 .execute()
         }
         val content = rsp.body()?.bytes()?.toExternalResource() ?: throw  DownloadException(rsp.message())
