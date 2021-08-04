@@ -1,6 +1,9 @@
 package win.rainchan.uselessbot.controller
 
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.withContext
 import net.mamoe.mirai.Bot
 import net.mamoe.mirai.contact.Group
 import net.mamoe.mirai.event.EventHandler
@@ -9,7 +12,6 @@ import net.mamoe.mirai.event.events.GroupMessageEvent
 import net.mamoe.mirai.message.data.MessageChain
 import net.mamoe.mirai.message.data.PlainText
 import net.mamoe.mirai.message.data.buildForwardMessage
-import net.mamoe.mirai.utils.ExternalResource
 import net.mamoe.mirai.utils.ExternalResource.Companion.sendAsImageTo
 import net.mamoe.mirai.utils.ExternalResource.Companion.toExternalResource
 import net.mamoe.mirai.utils.ExternalResource.Companion.uploadAsImage
@@ -18,13 +20,13 @@ import okhttp3.Request
 import org.apache.commons.logging.LogFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Controller
-import win.rainchan.uselessbot.config.GroupConfig
+import win.rainchan.uselessbot.config.BotConfig
 import win.rainchan.uselessbot.utils.DownloadException
 import win.rainchan.uselessbot.utils.ImgDownloader
 
 @Controller
 class SetuController(
-    private val gConf: GroupConfig,
+    private val gConf: BotConfig,
     private val client: OkHttpClient,
     private val downloader: ImgDownloader
 ) : SimpleListenerHost() {

@@ -6,8 +6,10 @@ import org.springframework.stereotype.Component
 
 @ConfigurationProperties("uselessbot")
 @Component
-class GroupConfig {
+class BotConfig {
     public lateinit var  groupList:List<Long>
+
+    public lateinit var dbPath:String
 
     fun checkGroup(group:Group): Boolean {
         if (group.id !in groupList){

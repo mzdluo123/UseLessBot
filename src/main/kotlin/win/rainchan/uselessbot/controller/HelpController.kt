@@ -4,10 +4,10 @@ import net.mamoe.mirai.event.EventHandler
 import net.mamoe.mirai.event.SimpleListenerHost
 import net.mamoe.mirai.event.events.GroupMessageEvent
 import org.springframework.stereotype.Controller
-import win.rainchan.uselessbot.config.GroupConfig
+import win.rainchan.uselessbot.config.BotConfig
 
 @Controller
-class HelpController(private val conf:GroupConfig): SimpleListenerHost() {
+class HelpController(private val conf:BotConfig): SimpleListenerHost() {
     @EventHandler
     suspend fun GroupMessageEvent.onGroup(){
         if (conf.checkGroup(group)){
@@ -24,6 +24,9 @@ class HelpController(private val conf:GroupConfig): SimpleListenerHost() {
                     |[涩图来] 来一张图
                     |[不够涩] 来一堆图
                     |[贴贴] 来一张贴贴图
+                    |[加自选](代码)
+                    |[删自选](代码)
+                    |[我的基金] 查看基金信息
                 """.trimMargin())
             }
         }
