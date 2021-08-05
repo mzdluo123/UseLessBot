@@ -113,8 +113,7 @@ class StockController(private val gConf: BotConfig, private val downloader: ImgD
 
     fun getStockCode(msg: String,start:Int): String? {
         val code = msg.substring(start).trim()
-        if (code.isEmpty() || code.length > 6) {
-
+        if (code.isEmpty() || code.length != 6 || code.toIntOrNull() == null) {
             return null
         }
         return code
