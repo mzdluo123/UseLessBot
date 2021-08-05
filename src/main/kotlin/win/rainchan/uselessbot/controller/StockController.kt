@@ -67,7 +67,7 @@ class StockController(private val gConf: BotConfig, private val downloader: ImgD
         if (msg.startsWith("基金")) {
             val code = getStockCode(msg,2)
             if (code == null){
-                sender.sendMessage("无效代码")
+                group.sendMessage("无效代码")
                 return
             }
             val day = downloader.downloadImg("http://j4.dfcfw.com/charts/pic7/${code}.png").toExternalResource()
@@ -78,7 +78,7 @@ class StockController(private val gConf: BotConfig, private val downloader: ImgD
         if (msg.startsWith("加自选")) {
             val code = getStockCode(msg,3)
             if (code == null){
-                sender.sendMessage("无效代码")
+                group.sendMessage("无效代码")
                 return
             }
             addStock(sender.id, code)
@@ -87,7 +87,7 @@ class StockController(private val gConf: BotConfig, private val downloader: ImgD
         if (msg.startsWith("删自选")) {
             val code = getStockCode(msg,3)
             if (code == null){
-                sender.sendMessage("无效代码")
+                group.sendMessage("无效代码")
                 return
             }
             delStock(sender.id, code)
