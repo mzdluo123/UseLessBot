@@ -12,7 +12,6 @@ import net.mamoe.mirai.event.events.GroupMessageEvent
 import net.mamoe.mirai.message.data.MessageChain
 import net.mamoe.mirai.message.data.PlainText
 import net.mamoe.mirai.message.data.buildForwardMessage
-import net.mamoe.mirai.utils.ExternalResource.Companion.sendAsImageTo
 import net.mamoe.mirai.utils.ExternalResource.Companion.toExternalResource
 import net.mamoe.mirai.utils.ExternalResource.Companion.uploadAsImage
 import okhttp3.OkHttpClient
@@ -21,6 +20,7 @@ import org.apache.commons.logging.LogFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Controller
 import win.rainchan.uselessbot.config.BotConfig
+import win.rainchan.uselessbot.dao.ImgDto
 import win.rainchan.uselessbot.utils.DownloadException
 import win.rainchan.uselessbot.utils.ImgDownloader
 
@@ -28,7 +28,8 @@ import win.rainchan.uselessbot.utils.ImgDownloader
 class SetuController(
     private val gConf: BotConfig,
     private val client: OkHttpClient,
-    private val downloader: ImgDownloader
+    private val downloader: ImgDownloader,
+    private val imgs: ImgDto
 ) : SimpleListenerHost() {
     @Autowired
     lateinit var bot: Bot
@@ -43,12 +44,12 @@ class SetuController(
                 group.sendMessage(getSetu(group))
                 return
             }
-            if (msg == "贴贴") {
-                val img = downloader.downloadImg("https://v1.yurikoto.com/wallpaper").toExternalResource()
-                img.sendAsImageTo(group)
-                img.close()
-                return
-            }
+//            if (msg == "贴贴") {
+//                val img = downloader.downloadImg("https://v1.yurikoto.com/wallpaper").toExternalResource()
+//                img.sendAsImageTo(group)
+//                img.close()
+//                return
+//            }
             if (msg == "不够涩") {
                 group.sendMessage("嘻嘻......马上就来")
                 val msg = buildForwardMessage {
@@ -64,6 +65,18 @@ class SetuController(
                     }.awaitAll()
                 }
                 group.sendMessage(msg)
+            }
+            if (msg == "贴贴") {
+                val url = "https://pximg.rainchan.win/img?img_id=${imgs.random().id}&web=true"
+                val img = downloader.downloadImg(url).toExternalResource()
+                val img2 = downloader.downloadImg("https://v1.yurikoto.com/wallpaper").toExternalResource()
+                val msg = buildForwardMessage {
+                    add(1023718443,"贴贴",img2.uploadAsImage(group))
+                    add(1023718443,"贴贴",img.uploadAsImage(group) + PlainText(url))
+                }
+                group.sendMessage(msg)
+                img.close()
+                img2.close()
             }
         }
     }
