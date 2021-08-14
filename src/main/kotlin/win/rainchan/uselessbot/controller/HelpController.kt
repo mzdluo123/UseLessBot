@@ -15,7 +15,6 @@ class HelpController(private val conf:BotConfig): SimpleListenerHost() {
             if ( msg== "你好"){
                 group.sendMessage("你好呀")
             }
-
             if (msg =="/help"){
                 group.sendMessage("""UseLessBot-没啥用的机器人
                     |[大盘] 查看大盘信息
@@ -27,6 +26,7 @@ class HelpController(private val conf:BotConfig): SimpleListenerHost() {
                     |[加自选](代码)
                     |[删自选](代码)
                     |[我的基金] 查看基金信息
+                    |AT我+文字可以和我聊天哦
                 """.trimMargin())
             }
         }

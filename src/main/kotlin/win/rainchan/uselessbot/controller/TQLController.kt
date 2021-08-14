@@ -151,7 +151,8 @@ Graham Bell当初发明出电话时，他看到有一个来自%name%的未接来
     @EventHandler
     suspend fun GroupMessageEvent.onMsg() {
         if (config.checkGroup(group)) {
-            if (message.contentToString().startsWith("tql")) {
+            val msg = message.contentToString()
+            if (msg.startsWith("tql") || msg.startsWith("太强了")) {
                 val target = message.firstIsInstanceOrNull<At>()
                 if (target != null) {
                     group.sendMessage(MSG.random().replace("%name%", group[target.target]?.nameCardOrNick ?: "你"))
