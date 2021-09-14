@@ -21,7 +21,7 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	annotationProcessor("org.springframework.boot:spring-boot-configuration-processor:2.5.3")
-	implementation("com.github.mzdluo123:mirai-spring-boot-starter:1.5.1")
+	implementation("com.github.mzdluo123:mirai-spring-boot-starter:1.5.2")
 
 	implementation("org.dizitart:nitrite:3.4.3")
 	implementation("org.dizitart:potassium-nitrite:3.4.3")
